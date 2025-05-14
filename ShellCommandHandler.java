@@ -2,16 +2,16 @@ import java.io.File;
 import java.io.IOException;
 public class ShellCommandHandler{
 
-        private File currentDirectory;
-        public ShellCommandHandler(){
+        private File currentDirectory; //תיקייה נוכחית שהמשתמש נמצא בה כרגע
+        public ShellCommandHandler(){ //קובע את התיקייה הנוכחית לתיקיית העבודה
             this.currentDirectory= new File(System.getProperty("user.dir"));
         }
 
-        public void printWorkingDirectory(){
+        public void printWorkingDirectory(){//מציג את הנתיב המלא של התיקייה הנוכחית
             System.out.println("Current Directory: "+currentDirectory.getAbsolutePath());
         }
 
-        public void listDirectory(){
+        public void listDirectory(){ //מציג את כל הקבצים והתיקיות בתיקייה הנוכחית
             String[] files =currentDirectory.list();
             if (files != null) {
                 System.out.println("Files and directories in "+currentDirectory.getAbsolutePath()+":");
@@ -22,7 +22,7 @@ public class ShellCommandHandler{
                 System.out.println("The directory is empty or an error occurred");
             }
         }
-        public void changeDirectory(String name){
+        public void changeDirectory(String name){ //משנה תיקייה נוכחית(cd(
             File newDirectory=new File(currentDirectory, name);
             if (newDirectory.isDirectory()) {
                 currentDirectory=newDirectory;
@@ -32,7 +32,7 @@ public class ShellCommandHandler{
             }
         }
 
-        public void makeDirectory(String name){
+        public void makeDirectory(String name){ // יוצרת תיקייה חדשה
             File newDir=new File(currentDirectory, name);
             if (newDir.mkdir()){
                 System.out.println("Directory created: " + newDir.getAbsolutePath());
@@ -41,7 +41,7 @@ public class ShellCommandHandler{
             }
         }
 
-        public void createFile(String name){
+        public void createFile(String name){ //יוצת קובץ חדש
             File newFile=new File(currentDirectory, name);
             try{
                 if (newFile.createNewFile()){
@@ -53,7 +53,7 @@ public class ShellCommandHandler{
                 System.out.println("Error creating file:" + e.getMessage());
             }
         }
-        public void printHelp() {
+        public void printHelp() {//מציגה את הפקודות הנתמכות
             System.out.println("Supported commands:");
             System.out.println("pwd- Print working directory");
             System.out.println("ls- List directory contents");
@@ -63,7 +63,7 @@ public class ShellCommandHandler{
             System.out.println("help- Show this help message");
             System.out.println("exit- Exit the shell");
         }
-        public File getCurrentDirectory() {
+        public File getCurrentDirectory() {//מחזירה את התיקייה הנוכחית
             return currentDirectory;
         }
     }
